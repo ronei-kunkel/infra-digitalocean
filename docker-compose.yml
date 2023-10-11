@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+
+  main_nginx:
+    container_name: "main_nginx"
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./.docker/nginx/Dockerfile
+    ports:
+      - 80:80
+    networks:
+      - internal
+    volumes:
+      - .:/infra
+      - ./.docker/logs/nginx:/var/log/nginx/
+
+  main_mariadb:
+    container_name: "main_mariadb"
+    image: mariadb:11.0.2
+    volumes:
+      - ./.docker/database:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_USER: ${DB_USERNAME}
+    networks:
+      - internal
+
+  main_php82:
+    container_name: "main_php82"
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: "./.docker/php/Dockerfile"
+    volumes:
+      - .:/infra
+    networks:
+      - internal
+    depends_on:
+      - main_nginx
+      - main_mariadb
+
+networks:
+  internal:
+    driver: bridge
