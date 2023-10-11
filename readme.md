@@ -8,7 +8,7 @@
 
 ### run
 
-`docker run -d -v $(pwd):/infra -w /infra -p 80:80 --name nginxphp82-apps nginxphp82`
+`docker run -d -v /var/log/nginx/:/var/log/nginx/ -v $(pwd):/infra -w /infra -p 80:80 --name nginxphp82-apps nginxphp82`
 
 ### any alterations needs made inside of container
 
