@@ -10,6 +10,10 @@
 
 `docker run -d -v $(pwd):/infra -w /infra -p 80:80 --name nginxphp82-apps nginxphp82`
 
+### any alterations needs made inside of container
+
+`docker exec -it nginxphp82-apps bash`
+
 ## Development
 
 ### make .env file
