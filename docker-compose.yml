@@ -25,10 +25,8 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
       MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
       MARIADB_PASSWORD: ${DB_PASSWORD}
-      MARIADB_USER: ${DB_USERNAME}
     networks:
       - internal
 

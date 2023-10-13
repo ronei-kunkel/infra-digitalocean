@@ -27,3 +27,7 @@
 ### run
 
 `docker-compose up -d`
+
+### databases
+
+If you need use any database, you need create them first if not exist
